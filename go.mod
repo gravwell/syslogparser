@@ -1,4 +1,4 @@
-module github.com/jeromer/syslogparser
+module github.com/gravwell/syslogparser
 
 go 1.14
 
