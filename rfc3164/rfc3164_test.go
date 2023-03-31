@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jeromer/syslogparser"
-	"github.com/jeromer/syslogparser/parsercommon"
+	"github.com/gravwell/syslogparser"
+	"github.com/gravwell/syslogparser/parsercommon"
 	"github.com/stretchr/testify/require"
 )
 
@@ -44,18 +44,18 @@ func TestParserValid(t *testing.T) {
 	require.Equal(
 		t,
 		syslogparser.LogParts{
-			"timestamp": time.Date(
+			"Timestamp": time.Date(
 				time.Now().Year(),
 				time.October,
 				11, 22, 14, 15, 0,
 				time.UTC,
 			),
-			"hostname": "mymachine",
-			"tag":      "very.large.syslog.message.tag",
-			"content":  "'su root' failed for lonvick on /dev/pts/8",
-			"priority": 34,
-			"facility": 4,
-			"severity": 2,
+			"Hostname": "mymachine",
+			"Appname":  "very.large.syslog.message.tag",
+			"Message":  "'su root' failed for lonvick on /dev/pts/8",
+			"Priority": 34,
+			"Facility": 4,
+			"Severity": 2,
 		},
 		p.Dump(),
 	)
@@ -92,18 +92,18 @@ func TestParserWithPriority(t *testing.T) {
 	require.Equal(
 		t,
 		syslogparser.LogParts{
-			"timestamp": time.Date(
+			"Timestamp": time.Date(
 				time.Now().Year(),
 				time.October,
 				11, 22, 14, 15, 0,
 				time.UTC,
 			),
-			"hostname": "mymachine",
-			"tag":      "very.large.syslog.message.tag",
-			"content":  "'su root' failed for lonvick on /dev/pts/8",
-			"priority": 0,
-			"facility": 0,
-			"severity": 0,
+			"Hostname": "mymachine",
+			"Appname":  "very.large.syslog.message.tag",
+			"Message":  "'su root' failed for lonvick on /dev/pts/8",
+			"Priority": 0,
+			"Facility": 0,
+			"Severity": 0,
 		},
 		p.Dump(),
 	)
@@ -123,18 +123,18 @@ func TestParserWithHostname(t *testing.T) {
 	require.Equal(
 		t,
 		syslogparser.LogParts{
-			"timestamp": time.Date(
+			"Timestamp": time.Date(
 				time.Now().Year(),
 				time.June,
 				23, 13, 17, 42, 0,
 				time.UTC,
 			),
-			"hostname": "dummy",
-			"tag":      "chronyd",
-			"content":  "Selected source 192.168.65.1",
-			"priority": 30,
-			"facility": 3,
-			"severity": 6,
+			"Hostname": "dummy",
+			"Appname":  "chronyd",
+			"Message":  "Selected source 192.168.65.1",
+			"Priority": 30,
+			"Facility": 3,
+			"Severity": 6,
 		},
 		p.Dump(),
 	)
@@ -155,18 +155,18 @@ func TestParserWithTag(t *testing.T) {
 	require.Equal(
 		t,
 		syslogparser.LogParts{
-			"timestamp": time.Date(
+			"Timestamp": time.Date(
 				time.Now().Year(),
 				time.June,
 				23, 13, 17, 42, 0,
 				time.UTC,
 			),
-			"hostname": "localhost",
-			"tag":      "chronyd",
-			"content":  "Selected source 192.168.65.1",
-			"priority": 30,
-			"facility": 3,
-			"severity": 6,
+			"Hostname": "localhost",
+			"Appname":  "chronyd",
+			"Message":  "Selected source 192.168.65.1",
+			"Priority": 30,
+			"Facility": 3,
+			"Severity": 6,
 		},
 		p.Dump(),
 	)
@@ -189,18 +189,18 @@ func TestParserWithLocation(t *testing.T) {
 	require.Equal(
 		t,
 		syslogparser.LogParts{
-			"timestamp": time.Date(
+			"Timestamp": time.Date(
 				time.Now().Year(),
 				time.June,
 				23, 13, 17, 42, 0,
 				loc,
 			),
-			"hostname": "localhost",
-			"tag":      "foo",
-			"content":  "Selected source 192.168.65.1",
-			"priority": 30,
-			"facility": 3,
-			"severity": 6,
+			"Hostname": "localhost",
+			"Appname":  "foo",
+			"Message":  "Selected source 192.168.65.1",
+			"Priority": 30,
+			"Facility": 3,
+			"Severity": 6,
 		},
 		p.Dump(),
 	)
@@ -222,17 +222,17 @@ func TestParserWithTimestampFormat(t *testing.T) {
 	require.Equal(
 		t,
 		syslogparser.LogParts{
-			"timestamp": time.Date(
+			"Timestamp": time.Date(
 				2006, time.January, 2,
 				15, 4, 5, 0,
 				time.UTC,
 			),
-			"hostname": "localhost",
-			"tag":      "foo",
-			"content":  "Selected source 192.168.65.1",
-			"priority": 30,
-			"facility": 3,
-			"severity": 6,
+			"Hostname": "localhost",
+			"Appname":  "foo",
+			"Message":  "Selected source 192.168.65.1",
+			"Priority": 30,
+			"Facility": 3,
+			"Severity": 6,
 		},
 		p.Dump(),
 	)
@@ -275,18 +275,18 @@ func TestParserWithPriorityHostnameTag(t *testing.T) {
 	require.Equal(
 		t,
 		syslogparser.LogParts{
-			"timestamp": time.Date(
+			"Timestamp": time.Date(
 				time.Now().Year(),
 				time.October,
 				11, 22, 14, 15, 0,
 				time.UTC,
 			),
-			"hostname": h,
-			"tag":      tag,
-			"content":  "'su root' failed for lonvick on /dev/pts/8",
-			"priority": 0,
-			"facility": 0,
-			"severity": 0,
+			"Hostname": h,
+			"Appname":  tag,
+			"Message":  "'su root' failed for lonvick on /dev/pts/8",
+			"Priority": 0,
+			"Facility": 0,
+			"Severity": 0,
 		},
 		p.Dump(),
 	)
@@ -540,7 +540,7 @@ func TestParseMessageSizeChecks(t *testing.T) {
 
 	require.Len(
 		t,
-		fields["content"],
+		fields["Message"],
 		MAX_PACKET_LEN-len(start),
 	)
 
@@ -556,7 +556,7 @@ func TestParseMessageSizeChecks(t *testing.T) {
 	)
 
 	require.Equal(
-		t, "hello", fields["content"],
+		t, "hello", fields["Message"],
 	)
 }
 
@@ -572,16 +572,16 @@ func TestParseWithoutTag(t *testing.T) {
 
 	obtained := p.Dump()
 	expected := syslogparser.LogParts{
-		"timestamp": time.Date(
+		"Timestamp": time.Date(
 			now.Year(), time.June, 23,
 			13, 17, 42, 0, time.UTC,
 		),
-		"hostname": "127.0.0.1",
-		"tag":      "java.lang.NullPointerException",
-		"content":  "",
-		"priority": 30,
-		"facility": 3,
-		"severity": 6,
+		"Hostname": "127.0.0.1",
+		"Appname":  "java.lang.NullPointerException",
+		"Message":  "",
+		"Priority": 30,
+		"Facility": 3,
+		"Severity": 6,
 	}
 
 	require.Equal(

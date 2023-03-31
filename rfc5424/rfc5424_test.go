@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/jeromer/syslogparser"
-	"github.com/jeromer/syslogparser/parsercommon"
+	"github.com/gravwell/syslogparser"
+	"github.com/gravwell/syslogparser/parsercommon"
 	"github.com/stretchr/testify/require"
 )
 
@@ -24,84 +24,84 @@ func TestParser(t *testing.T) {
 			description: "no STRUCTURED-DATA 1/2",
 			input:       "<34>1 2003-10-11T22:14:15.003Z mymachine.example.com su - ID47 - 'su root' failed for lonvick on /dev/pts/8",
 			expectedParts: syslogparser.LogParts{
-				"priority": 34,
-				"facility": 4,
-				"severity": 2,
-				"version":  1,
-				"timestamp": time.Date(
+				"Priority": 34,
+				"Facility": 4,
+				"Severity": 2,
+				"Version":  1,
+				"Timestamp": time.Date(
 					2003, time.October, 11,
 					22, 14, 15, 3*10e5,
 					time.UTC,
 				),
-				"hostname":        "mymachine.example.com",
-				"app_name":        "su",
-				"proc_id":         "-",
-				"msg_id":          "ID47",
-				"structured_data": "-",
-				"message":         "'su root' failed for lonvick on /dev/pts/8",
+				"Hostname":       "mymachine.example.com",
+				"Appname":        "su",
+				"ProcID":         "-",
+				"MsgID":          "ID47",
+				"StructuredData": "-",
+				"Message":        "'su root' failed for lonvick on /dev/pts/8",
 			},
 		},
 		{
 			description: "no STRUCTURED_DATA 2/2",
 			input:       "<165>1 2003-08-24T05:14:15.000003-07:00 192.0.2.1 myproc 8710 - - %% It's time to make the do-nuts.",
 			expectedParts: syslogparser.LogParts{
-				"priority": 165,
-				"facility": 20,
-				"severity": 5,
-				"version":  1,
-				"timestamp": time.Date(
+				"Priority": 165,
+				"Facility": 20,
+				"Severity": 5,
+				"Version":  1,
+				"Timestamp": time.Date(
 					2003, time.August, 24,
 					5, 14, 15, 3*10e2,
 					tmpTZ.Location(),
 				),
-				"hostname":        "192.0.2.1",
-				"app_name":        "myproc",
-				"proc_id":         "8710",
-				"msg_id":          "-",
-				"structured_data": "-",
-				"message":         "%% It's time to make the do-nuts.",
+				"Hostname":       "192.0.2.1",
+				"Appname":        "myproc",
+				"ProcID":         "8710",
+				"MsgID":          "-",
+				"StructuredData": "-",
+				"Message":        "%% It's time to make the do-nuts.",
 			},
 		},
 		{
 			description: "with STRUCTURED_DATA",
 			input:       `<165>1 2003-10-11T22:14:15.003Z mymachine.example.com evntslog - ID47 [exampleSDID@32473 iut="3" eventSource="Application" eventID="1011"] An application event log entry...`,
 			expectedParts: syslogparser.LogParts{
-				"priority": 165,
-				"facility": 20,
-				"severity": 5,
-				"version":  1,
-				"timestamp": time.Date(
+				"Priority": 165,
+				"Facility": 20,
+				"Severity": 5,
+				"Version":  1,
+				"Timestamp": time.Date(
 					2003, time.October, 11,
 					22, 14, 15, 3*10e5,
 					time.UTC,
 				),
-				"hostname":        "mymachine.example.com",
-				"app_name":        "evntslog",
-				"proc_id":         "-",
-				"msg_id":          "ID47",
-				"structured_data": `[exampleSDID@32473 iut="3" eventSource="Application" eventID="1011"]`,
-				"message":         "An application event log entry...",
+				"Hostname":       "mymachine.example.com",
+				"Appname":        "evntslog",
+				"ProcID":         "-",
+				"MsgID":          "ID47",
+				"StructuredData": `[exampleSDID@32473 iut="3" eventSource="Application" eventID="1011"]`,
+				"Message":        "An application event log entry...",
 			},
 		},
 		{
 			description: "STRUCTURED_DATA only",
 			input:       `<165>1 2003-10-11T22:14:15.003Z mymachine.example.com evntslog - ID47 [exampleSDID@32473 iut="3" eventSource= "Application" eventID="1011"][examplePriority@32473 class="high"]`,
 			expectedParts: syslogparser.LogParts{
-				"priority": 165,
-				"facility": 20,
-				"severity": 5,
-				"version":  1,
-				"timestamp": time.Date(
+				"Priority": 165,
+				"Facility": 20,
+				"Severity": 5,
+				"Version":  1,
+				"Timestamp": time.Date(
 					2003, time.October, 11,
 					22, 14, 15, 3*10e5,
 					time.UTC,
 				),
-				"hostname":        "mymachine.example.com",
-				"app_name":        "evntslog",
-				"proc_id":         "-",
-				"msg_id":          "ID47",
-				"structured_data": `[exampleSDID@32473 iut="3" eventSource= "Application" eventID="1011"][examplePriority@32473 class="high"]`,
-				"message":         "",
+				"Hostname":       "mymachine.example.com",
+				"Appname":        "evntslog",
+				"ProcID":         "-",
+				"MsgID":          "ID47",
+				"StructuredData": `[exampleSDID@32473 iut="3" eventSource= "Application" eventID="1011"][examplePriority@32473 class="high"]`,
+				"Message":        "",
 			},
 		},
 	}
@@ -157,21 +157,21 @@ func TestParseWithHostname(t *testing.T) {
 
 	require.Equal(
 		t, syslogparser.LogParts{
-			"priority": 34,
-			"facility": 4,
-			"severity": 2,
-			"version":  1,
-			"timestamp": time.Date(
+			"Priority": 34,
+			"Facility": 4,
+			"Severity": 2,
+			"Version":  1,
+			"Timestamp": time.Date(
 				2003, time.October, 11,
 				22, 14, 15, 3*10e5,
 				time.UTC,
 			),
-			"hostname":        "mymachine.example.com",
-			"app_name":        "su",
-			"proc_id":         "-",
-			"msg_id":          "ID47",
-			"structured_data": "-",
-			"message":         "'su root' failed for lonvick on /dev/pts/8",
+			"Hostname":       "mymachine.example.com",
+			"Appname":        "su",
+			"ProcID":         "-",
+			"MsgID":          "ID47",
+			"StructuredData": "-",
+			"Message":        "'su root' failed for lonvick on /dev/pts/8",
 		}, p.Dump(),
 	)
 }
@@ -202,21 +202,21 @@ func TestParseWithPriority(t *testing.T) {
 
 	require.Equal(
 		t, syslogparser.LogParts{
-			"priority": 34,
-			"facility": 4,
-			"severity": 2,
-			"version":  1,
-			"timestamp": time.Date(
+			"Priority": 34,
+			"Facility": 4,
+			"Severity": 2,
+			"Version":  1,
+			"Timestamp": time.Date(
 				2003, time.October, 11,
 				22, 14, 15, 3*10e5,
 				time.UTC,
 			),
-			"hostname":        "mymachine.example.com",
-			"app_name":        "su",
-			"proc_id":         "-",
-			"msg_id":          "ID47",
-			"structured_data": "-",
-			"message":         "'su root' failed for lonvick on /dev/pts/8",
+			"Hostname":       "mymachine.example.com",
+			"Appname":        "su",
+			"ProcID":         "-",
+			"MsgID":          "ID47",
+			"StructuredData": "-",
+			"Message":        "'su root' failed for lonvick on /dev/pts/8",
 		}, p.Dump(),
 	)
 }
@@ -249,21 +249,21 @@ func TestParseWithPriorityAndHostname(t *testing.T) {
 
 	require.Equal(
 		t, syslogparser.LogParts{
-			"priority": 34,
-			"facility": 4,
-			"severity": 2,
-			"version":  1,
-			"timestamp": time.Date(
+			"Priority": 34,
+			"Facility": 4,
+			"Severity": 2,
+			"Version":  1,
+			"Timestamp": time.Date(
 				2003, time.October, 11,
 				22, 14, 15, 3*10e5,
 				time.UTC,
 			),
-			"hostname":        "mymachine.example.com",
-			"app_name":        "su",
-			"proc_id":         "-",
-			"msg_id":          "ID47",
-			"structured_data": "-",
-			"message":         "'su root' failed for lonvick on /dev/pts/8",
+			"Hostname":       "mymachine.example.com",
+			"Appname":        "su",
+			"ProcID":         "-",
+			"MsgID":          "ID47",
+			"StructuredData": "-",
+			"Message":        "'su root' failed for lonvick on /dev/pts/8",
 		}, p.Dump(),
 	)
 }
@@ -1331,7 +1331,7 @@ func TestParseMessageSizeChecks(t *testing.T) {
 
 	require.Len(
 		t,
-		fields["message"],
+		fields["Message"],
 		MAX_PACKET_LEN-len(start),
 	)
 
@@ -1343,7 +1343,7 @@ func TestParseMessageSizeChecks(t *testing.T) {
 	fields = p.Dump()
 
 	require.Nil(t, err)
-	require.Equal(t, "hello", fields["message"])
+	require.Equal(t, "hello", fields["Message"])
 }
 
 func BenchmarkParseTimestamp(b *testing.B) {

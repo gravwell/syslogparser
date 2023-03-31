@@ -7,8 +7,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/jeromer/syslogparser"
-	"github.com/jeromer/syslogparser/parsercommon"
+	"github.com/gravwell/syslogparser"
+	"github.com/gravwell/syslogparser/parsercommon"
 )
 
 const (
@@ -144,17 +144,17 @@ func (p *Parser) Parse() error {
 
 func (p *Parser) Dump() syslogparser.LogParts {
 	return syslogparser.LogParts{
-		"priority":        p.header.priority.P,
-		"facility":        p.header.priority.F.Value,
-		"severity":        p.header.priority.S.Value,
-		"version":         p.header.version,
-		"timestamp":       p.header.timestamp,
-		"hostname":        p.header.hostname,
-		"app_name":        p.header.appName,
-		"proc_id":         p.header.procId,
-		"msg_id":          p.header.msgId,
-		"structured_data": p.structuredData,
-		"message":         p.message,
+		"Priority":       p.header.priority.P,
+		"Facility":       p.header.priority.F.Value,
+		"Severity":       p.header.priority.S.Value,
+		"Version":        p.header.version,
+		"Timestamp":      p.header.timestamp,
+		"Hostname":       p.header.hostname,
+		"Appname":        p.header.appName,
+		"ProcID":         p.header.procId,
+		"MsgID":          p.header.msgId,
+		"StructuredData": p.structuredData,
+		"Message":        p.message,
 	}
 }
 

@@ -5,8 +5,8 @@ import (
 	"math"
 	"time"
 
-	"github.com/jeromer/syslogparser"
-	"github.com/jeromer/syslogparser/parsercommon"
+	"github.com/gravwell/syslogparser"
+	"github.com/gravwell/syslogparser/parsercommon"
 )
 
 const (
@@ -128,13 +128,13 @@ func (p *Parser) Parse() error {
 
 func (p *Parser) Dump() syslogparser.LogParts {
 	return syslogparser.LogParts{
-		"timestamp": p.header.timestamp,
-		"hostname":  p.header.hostname,
-		"tag":       p.message.tag,
-		"content":   p.message.content,
-		"priority":  p.priority.P,
-		"facility":  p.priority.F.Value,
-		"severity":  p.priority.S.Value,
+		"Timestamp": p.header.timestamp,
+		"Hostname":  p.header.hostname,
+		"Appname":   p.message.tag,
+		"Message":   p.message.content,
+		"Priority":  p.priority.P,
+		"Facility":  p.priority.F.Value,
+		"Severity":  p.priority.S.Value,
 	}
 }
 

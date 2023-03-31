@@ -3,12 +3,12 @@ Syslogparser
 
 This is a syslog parser for the Go programming language.
 
-https://pkg.go.dev/github.com/jeromer/syslogparser
+https://pkg.go.dev/github.com/gravwell/syslogparser
 
 Installing
 ----------
 
-go get github.com/jeromer/syslogparser
+go get github.com/gravwell/syslogparser
 
 Supported RFCs
 --------------
@@ -113,15 +113,15 @@ Run `make benchmark`
     go test -bench=. -benchmem
     goos: linux
     goarch: amd64
-    pkg: github.com/jeromer/syslogparser
+    pkg: github.com/gravwell/syslogparser
     BenchmarkDetectRFC-8   	81994480	        14.7 ns/op	       0 B/op	       0 allocs/op
     PASS
-    ok  	github.com/jeromer/syslogparser	2.145s
+    ok  	github.com/gravwell/syslogparser	2.145s
 
     cd rfc3164 && go test -bench=. -benchmem
     goos: linux
     goarch: amd64
-    pkg: github.com/jeromer/syslogparser/rfc3164
+    pkg: github.com/gravwell/syslogparser/rfc3164
     BenchmarkParseTimestamp-8   	 2823901	       416 ns/op	      16 B/op	       1 allocs/op
     BenchmarkParseHostname-8    	34796552	        35.4 ns/op	      16 B/op	       1 allocs/op
     BenchmarkParseTag-8         	20954252	        59.3 ns/op	       8 B/op	       1 allocs/op
@@ -130,16 +130,16 @@ Run `make benchmark`
     BenchmarkParseFull-8        	 1445076	       838 ns/op	     336 B/op	      10 allocs/op
     PASS
 
-    ok  	github.com/jeromer/syslogparser/rfc3164	9.601s
+    ok  	github.com/gravwell/syslogparser/rfc3164	9.601s
     cd rfc5424 && go test -bench=. -benchmem
     goos: linux
     goarch: amd64
-    pkg: github.com/jeromer/syslogparser/rfc5424
+    pkg: github.com/gravwell/syslogparser/rfc5424
     BenchmarkParseTimestamp-8   	  790478	      1488 ns/op	     432 B/op	      21 allocs/op
     BenchmarkParseHeader-8      	 1000000	      1043 ns/op	     336 B/op	      18 allocs/op
     BenchmarkParseFull-8        	  980828	      1306 ns/op	     672 B/op	      21 allocs/op
     PASS
-    ok  	github.com/jeromer/syslogparser/rfc5424	4.356s
+    ok  	github.com/gravwell/syslogparser/rfc5424	4.356s
 
 
 [RFC 5424]: https://tools.ietf.org/html/rfc5424
