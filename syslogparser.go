@@ -44,7 +44,6 @@ func DetectRFC(buff []byte) (RFC, error) {
 
 	idx := bytes.IndexByte(buff, '>')
 	if idx == -1 || idx >= max {
-		//there is no complete header for RFC5424, throw RFC_3164
 		return RFC_UNKNOWN, errNoHeader
 	}
 
