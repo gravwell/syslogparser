@@ -17,6 +17,48 @@ func TestDetectRFC_3164(t *testing.T) {
 	require.Equal(t, p, RFC(RFC_3164))
 }
 
+func TestDetectRFC_3164NoHeader(t *testing.T) {
+	_, err := DetectRFC(
+		[]byte(
+			"Oct 11 22:14:15 ...",
+		),
+	)
+
+	require.NotNil(t, err)
+}
+
+func TestDetectRFC_3164NoHeaderShort(t *testing.T) {
+	_, err := DetectRFC(
+		[]byte(
+			"foo",
+		),
+	)
+
+	require.NotNil(t, err)
+}
+
+func TestDetectJustHeader(t *testing.T) {
+	p, err := DetectRFC(
+		[]byte(
+			"<34>",
+		),
+	)
+
+	require.NotNil(t, err)
+	require.Equal(t, p, RFC(RFC_UNKNOWN))
+}
+
+func TestDetectJustHeaderRFC5424(t *testing.T) {
+	p, err := DetectRFC(
+		[]byte(
+			"<34>1",
+		),
+	)
+
+	require.Nil(t, err)
+	require.Equal(t, p, RFC(RFC_5424))
+}
+
 func TestDetectRFC_5424(t *testing.T) {
 	p, err := DetectRFC(
 		[]byte(

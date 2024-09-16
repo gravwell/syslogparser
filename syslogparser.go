@@ -3,6 +3,8 @@
 package syslogparser
 
 import (
+	"bytes"
+	"errors"
 	"time"
 
 	"github.com/gravwell/syslogparser/parsercommon"
@@ -14,6 +16,10 @@ const (
 	RFC_UNKNOWN = iota
 	RFC_3164
 	RFC_5424
+)
+
+var (
+	errNoHeader = errors.New("no syslog header")
 )
 
 type LogParts map[string]interface{}
@@ -32,18 +38,17 @@ func DetectRFC(buff []byte) (RFC, error) {
 	var v int
 	var err error
 
-	for i := 0; i < max; i++ {
-		if buff[i] == '>' && i < max {
-			x := i + 1
-
-			v, err = parsercommon.ParseVersion(
-				buff, &x, max,
-			)
-
-			break
-		}
+	if max > len(buff) {
+		max = len(buff)
 	}
 
+	idx := bytes.IndexByte(buff, '>')
+	if idx == -1 || idx >= max {
+		return RFC_UNKNOWN, errNoHeader
+	}
+
+	idx = idx + 1
+	v, err = parsercommon.ParseVersion(buff, &idx, max)
 	if err != nil {
 		return RFC_UNKNOWN, err
 	}
