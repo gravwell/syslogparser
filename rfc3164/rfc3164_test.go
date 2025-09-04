@@ -780,3 +780,24 @@ func TestBenchmarkParseFull(t *testing.T) {
 		})
 	}
 }
+
+func TestParserJustHeader(t *testing.T) {
+	buff := []byte("<34>Oct 11 22:14:15 mymachine")
+	p := NewParser(buff)
+
+	require.Equal(
+		t,
+		&Parser{
+			buff:     buff,
+			cursor:   0,
+			l:        len(buff),
+			location: time.UTC,
+		},
+		p,
+	)
+
+	err := p.Parse()
+	if err == nil {
+		t.Fatal("nil response")
+	}
+}
