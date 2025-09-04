@@ -2,6 +2,7 @@ package rfc3164
 
 import (
 	"bytes"
+	"errors"
 	"math"
 	"time"
 
@@ -15,6 +16,8 @@ const (
 	// However we will accept a bit more while protecting from exhaustion
 	MAX_PACKET_LEN = 2048
 )
+
+var errTruncated = errors.New("truncated record")
 
 type Parser struct {
 	buff                  []byte
@@ -111,6 +114,10 @@ func (p *Parser) Parse() error {
 	}
 
 	p.header = hdr
+
+	if p.cursor >= len(p.buff) {
+		return errTruncated
+	}
 
 	if p.buff[p.cursor] == ' ' {
 		p.cursor++
